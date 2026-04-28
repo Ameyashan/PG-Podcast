@@ -1,0 +1,23 @@
+{
+  "name": "pg-podcast-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seed-locked": "tsx src/run.ts seed-locked",
+    "build-top": "tsx src/run.ts build-top",
+    "build-one": "tsx src/run.ts build-one"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "@supabase/supabase-js": "^2.104.1",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "elevenlabs": "^0.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
