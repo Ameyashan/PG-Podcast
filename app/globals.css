@@ -1,12 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf8f3;
-  --foreground: #1a1612;
-  --muted: #6b6357;
-  --accent: #d4622a;
-  --card: #ffffff;
-  --border: #e8e1d3;
+  --background: #F2EBDC;
+  --foreground: #1A1714;
+  --ink2: #3D362E;
+  --muted: #6B6157;
+  --accent: oklch(62% 0.16 50);
+  --accent-deep: oklch(48% 0.14 45);
+  --card: #FBF6EA;
+  --paper2: #EAE1CC;
+  --border: #D8CDB6;
+  --mint: oklch(72% 0.08 160);
 }
 
 @theme inline {
@@ -16,28 +20,48 @@
   --color-accent: var(--accent);
   --color-card: var(--card);
   --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #14110d;
-    --foreground: #f3ede2;
-    --muted: #918778;
-    --accent: #ff8a4c;
-    --card: #1c1813;
-    --border: #2c261d;
-  }
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-fraunces);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Soft scrollbar */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.025) 1px, transparent 1px),
+    radial-gradient(circle at 70% 80%, rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 3px 3px, 5px 5px;
+}
+
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.3);
+  background-clip: content-box;
+}
+
+@keyframes pgshake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}

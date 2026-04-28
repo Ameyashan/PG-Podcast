@@ -1,104 +1,47 @@
-"use client";
+import { Sparkles } from "lucide-react";
+import { WaitlistForm } from "./waitlist-form";
+import { PortraitIllustration } from "./portrait-illustration";
 
-import { motion } from "framer-motion";
-import { Headphones, Sparkles } from "lucide-react";
-import { AnimatedHeadline } from "./animated-headline";
-import { CountUp } from "./count-up";
-import { Marquee } from "./marquee";
-
-export function Hero({
-  unlockedCount,
-  totalCount,
-  totalMinutes,
-  marqueeTitles,
-}: {
-  unlockedCount: number;
-  totalCount: number;
-  totalMinutes: number;
-  marqueeTitles: string[];
-}) {
+export function Hero({ unlockedCount }: { unlockedCount: number }) {
   return (
-    <section className="relative overflow-hidden">
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 30% 20%, rgba(212,98,42,0.18), transparent 60%), radial-gradient(50% 40% at 80% 0%, rgba(255,200,140,0.18), transparent 60%)",
-        }}
-      />
-      <Marquee items={marqueeTitles} />
-
-      <div className="relative mx-auto max-w-3xl px-6 pt-24 pb-12 sm:pt-32 sm:pb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--card)]/60 px-3 py-1 text-xs uppercase tracking-[0.18em] text-[color:var(--muted)] backdrop-blur"
-        >
-          <Sparkles className="h-3 w-3 text-[color:var(--accent)]" />
-          Paul Graham, in your ears
-        </motion.div>
-
-        <AnimatedHeadline />
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut", delay: 0.85 }}
-          className="mt-6 text-lg text-[color:var(--muted)] max-w-2xl"
-        >
-          Nine-minute podcast versions of Paul Graham&apos;s essays, distilled and narrated. Press play
-          on any of the unlocked episodes below — or tell us which of the rest you want next.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 1.0 }}
-          className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm"
-        >
-          <Stat label="episodes ready" value={<CountUp to={unlockedCount} />} accent />
-          <Stat label="essays in catalog" value={<CountUp to={totalCount} />} />
-          <Stat
-            label="minutes of audio"
-            value={
-              <>
-                <CountUp to={totalMinutes} />
-              </>
-            }
-            icon={<Headphones className="h-3.5 w-3.5" />}
+    <section className="relative grid grid-cols-1 items-center gap-8 px-6 pb-10 pt-8 md:grid-cols-[1.15fr_1fr] md:gap-14 md:px-16 md:pb-10 md:pt-16">
+      <div className="flex flex-col gap-5 md:gap-[26px]">
+        <div className="inline-flex items-center gap-2 self-start rounded-full border border-[color:var(--border)] bg-[color:var(--card)] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.5px] text-[color:var(--ink2,#3D362E)]">
+          <span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{
+              background: "var(--mint)",
+              boxShadow: "0 0 0 3px color-mix(in srgb, var(--mint) 20%, transparent)",
+            }}
           />
-        </motion.div>
+          {unlockedCount} essays · ready now
+        </div>
+
+        <h1 className="m-0 font-serif text-[40px] font-normal leading-[1.0] tracking-[-1.5px] text-[color:var(--foreground)] md:text-[64px]">
+          Paul Graham,
+          <br />
+          <span className="italic text-[color:var(--accent)]">narrated.</span>
+        </h1>
+
+        <p className="m-0 max-w-[460px] text-base leading-[1.55] text-[color:var(--ink2,#3D362E)] md:text-lg">
+          His most-loved essays, turned into audio you can press play on.
+          Listen on your run, in the dishes, while the dog does its business.
+          Drop your email and we&apos;ll holler when the next episode lands.
+        </p>
+
+        <div id="waitlist">
+          <WaitlistForm />
+        </div>
+
+        <div className="mt-1 flex items-center gap-2 border-t border-dashed border-[color:var(--border)] pt-2 font-mono text-[11.5px] text-[color:var(--muted)]">
+          <Sparkles className="h-3 w-3 text-[color:var(--accent)]" fill="currentColor" />
+          <span>AI-narrated · essays used with credit to paulgraham.com</span>
+        </div>
+      </div>
+
+      <div className="relative hidden w-full items-center justify-center md:flex">
+        <PortraitIllustration size={520} />
       </div>
     </section>
-  );
-}
-
-function Stat({
-  value,
-  label,
-  accent,
-  icon,
-}: {
-  value: React.ReactNode;
-  label: string;
-  accent?: boolean;
-  icon?: React.ReactNode;
-}) {
-  return (
-    <div className="flex items-baseline gap-2">
-      <span
-        className={`text-2xl font-semibold tabular-nums ${
-          accent ? "text-[color:var(--accent)]" : "text-[color:var(--foreground)]"
-        }`}
-      >
-        {value}
-      </span>
-      <span className="flex items-center gap-1 text-xs uppercase tracking-wider text-[color:var(--muted)]">
-        {icon}
-        {label}
-      </span>
-    </div>
   );
 }
